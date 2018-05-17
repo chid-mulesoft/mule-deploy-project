@@ -1,22 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>consultation-DL</groupId>
 	<artifactId>Mule-Deploy</artifactId>
 	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	<name>Mule Deploy App</name>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mule.version>3.9.0</mule.version>
 		<mule.tools.version>1.2</mule.tools.version>
 	</properties>
-
 	<profiles>
+		<profile>
+			<id>crowd</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>generate-resources</phase>
+								<configuration>
+									<tasks>
+										<unzip dest="${project.basedir}/crowd" src="${mule.artifact.fileName}">
+											<patternset>
+												<include name="**/exchange.json"/>
+											</patternset>
+										</unzip>
+									</tasks>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.gmaven</groupId>
+						<artifactId>groovy-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>execute</goal>
+								</goals>
+								<configuration>
+									<source>${project.basedir}/src/main/scripts/api-manager-provision.groovy</source>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 		<profile>
 			<id>mmc</id>
 			<build>
@@ -38,7 +76,6 @@
 				</plugins>
 			</build>
 		</profile>
-
 		<profile>
 			<id>arm</id>
 			<build>
@@ -72,7 +109,8 @@
 							<application>${mule.artifact.fileName}</application>
 							<applicationName>${arm.appName}</applicationName>
 							<target>${arm.server}</target>
-							<targetType>${arm.server.type}</targetType>             <!-- One of: server, serverGroup, cluster -->
+							<targetType>${arm.server.type}</targetType>
+							<!-- One of: server, serverGroup, cluster -->
 							<environment>${anypoint.env}</environment>
 							<businessGroup>${anypoint.org}</businessGroup>
 							<url>https://anypoint.mulesoft.com</url>
@@ -121,7 +159,8 @@
 						<version>2.2.1</version>
 						<configuration>
 							<deploymentType>cloudhub</deploymentType>
-							<muleVersion>${ch.runtime}</muleVersion>               <!-- This is the runtime version as it appears on the CloudHub interface -->
+							<muleVersion>${ch.runtime}</muleVersion>
+							<!-- This is the runtime version as it appears on the CloudHub interface -->
 							<username>${anypoint.user}</username>
 							<password>${anypoint.password}</password>
 							<redeploy>true</redeploy>
@@ -166,7 +205,6 @@
 			<url>http://localhost:18081/nexus/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
-
 	<scm>
 		<connection>${scmConn}</connection>
 		<developerConnection>${scmDevConn}</developerConnection>
