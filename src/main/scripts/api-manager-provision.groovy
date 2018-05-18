@@ -111,7 +111,8 @@ class CICDUtil
 					 'password': System.properties.'anypoint.password',
 					 'exchangeFileName': System.properties.'exchangeFileName',
 					 'orgId': System.properties.'orgId',
-					 'envId': System.properties.'envId'
+					 'envId': System.properties.'envId',
+					 'targetPropFile' : System.properties.'targetPropFile'
 					]
 
 		return props;
@@ -126,7 +127,7 @@ class CICDUtil
 
 		log(INFO, "apiInstance=" + result)
 
-
+		return result
 	}
 
 	def getAPIInstanceByExchangeAssetDetail(props, exchangeDetail, token)
@@ -269,6 +270,18 @@ class CICDUtil
 
 	}
 
+	def persisteAPIDiscoveryDetail (props, result)
+	{
+		def outputFile = new File(props.targetPropFile)
+
+		assert outputFile.canWrite() : "${props.targetPropFile} file cannot be write"
+
+		outputFile.append("apiDiscoveryVersion="+result.apiDiscoveryVersion+"\n")
+		outputFile.append("apiDiscoveryName="+result.apiDiscoveryName+"\n")
+
+
+	}
+
 	static void main(String[] args) {
 
 
@@ -278,10 +291,9 @@ class CICDUtil
       
       	def exchangeDetail = util.extractExchangeAssetDetail(props);
 
-      	def apiInstance = util.provisionAPIManager(props, exchangeDetail);
+      	def result = util.provisionAPIManager(props, exchangeDetail);
 
-
-
+      	util.persisteAPIDiscoveryDetail(props, result)
 
 
    	} 
