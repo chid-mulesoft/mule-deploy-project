@@ -12,6 +12,15 @@
 		<mule.version>3.9.0</mule.version>
 		<mule.tools.version>1.2</mule.tools.version>
 	</properties>
+
+	<dependencies>
+        <dependency>
+            <groupId>org.codehaus.groovy.modules.http-builder</groupId>
+            <artifactId>http-builder</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+	</dependencies>
+
 	<profiles>
 		<profile>
 			<id>crowd</id>
