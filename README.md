@@ -17,4 +17,4 @@ Once the API asset is published in Exchange, it will be created with a meta info
 
 The maven command will be used to create or lookup an API instance in API Manager's dedicated environment.
 
-mvn package -P crowd  -Danypoint.user=derek.lin -Danypoint.password=<ANYPOINT PASSWORD>  -DorgId=<ORG ID> -DenvId=<ENV ID>  -DexchangeFileName=<LOCATION OF THE exchange.json file> -DtargetPropFile=<OUTPUT FILE for holding the api discovery detail>
+mvn package -P crowd  -Danypoint.user=derek.lin -Danypoint.password=(ANYPOINT PASSWORD)  -DorgId=(ORG ID) -DenvId=(ENV ID)  -DexchangeFileName=(LOCATION OF THE exchange.json file) -DtargetPropFile=(OUTPUT FILE for holding the api discovery detail)
