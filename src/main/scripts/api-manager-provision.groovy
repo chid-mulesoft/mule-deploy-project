@@ -58,7 +58,7 @@ class CICDUtil
 		def groupId=exchangeDetail.groupId
 		def assetVersion=exchangeDetail.version
 
-		exchangeDetail.each{ log(INFO, it) }
+		exchangeDetail.each{ log(DEBUG, it) }
 		
 		log(DEBUG,  "END extractExchangeAssetDetail")
 
@@ -160,7 +160,7 @@ class CICDUtil
 
 			allAPIInstances.each{ 
 				log(INFO, it)
-				if (it.environmentId == props.envId && it.version == exchangeDetail.assetVersion)
+				if (it.environmentId == props.envId && it.version == exchangeDetail.version)
 				{
 					apiInstance = it;
 					apiDiscoveryName = "groupId:"+props.orgId+":assetId:"+ exchangeDetail.assetId
