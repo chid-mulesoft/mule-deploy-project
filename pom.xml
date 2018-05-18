@@ -168,6 +168,8 @@
 								<anypoint.platform.contracts_base_uri>https://anypoint.mulesoft.com/apigateway/ccs</anypoint.platform.contracts_base_uri>
 								<anypoint.platform.client_id>${anypoint.clientId}</anypoint.platform.client_id>
 								<anypoint.platform.client_secret>${anypoint.clientSecret}</anypoint.platform.client_secret>
+								<anypoint.api.discovery.name>${anypoint.api.discovery.name}</anypoint.api.discovery.name>
+								<anypoint.api.discovery.version>${anypoint.api.discovery.version}</anypoint.api.discovery.version>
 							</properties>
 						</configuration>
 						<executions>
