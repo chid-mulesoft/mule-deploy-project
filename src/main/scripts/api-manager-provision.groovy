@@ -44,8 +44,12 @@ class CICDUtil
 	def extractExchangeAssetDetail(props)
 	{
 		log(DEBUG,  "START extractExchangeAssetDetail")
-
+ 
 		def inputFile = new File(props.exchangeFileName)
+
+		assert inputFile.exists() : "exchange.json file not found"
+		assert inputFile.canRead() : "exchange.json file cannot be read"
+
 		def exchangeDetail = new JsonSlurper().parseText(inputFile.text)
 
 
@@ -103,8 +107,8 @@ class CICDUtil
 	
 	def init ()
 	{
-		def props = ['username':System.properties.'username', 
-					 'password': System.properties.'password',
+		def props = ['username':System.properties.'anypoint.user', 
+					 'password': System.properties.'anypoint.password',
 					 'exchangeFileName': System.properties.'exchangeFileName',
 					 'orgId': System.properties.'orgId',
 					 'envId': System.properties.'envId'
