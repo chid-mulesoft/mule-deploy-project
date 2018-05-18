@@ -160,7 +160,7 @@ class CICDUtil
 
 			allAPIInstances.each{ 
 				log(INFO, it)
-				if (it.environmentId == props.envId)
+				if (it.environmentId == props.envId && it.version == exchangeDetail.assetVersion)
 				{
 					apiInstance = it;
 					apiDiscoveryName = "groupId:"+props.orgId+":assetId:"+ exchangeDetail.assetId
