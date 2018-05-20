@@ -20,10 +20,12 @@ This Maven project can be used as a standalone independent deployment project to
     4. Alert
 ```
 
-Different Maven profile can be use for the respective deployment target. For instance, to deploy a MDA to ARM, the maven command will
+# Usage
+
+Different Maven profile can be used for the respective deployment target. For instance, to deploy a MDA to ARM, the maven command will
 be  "mvn deploy -P arm -Dargs=...". 
 
-The following section will detail the arguments which can be used in each profile.
+The following section will detail the arguments to be used in each profile.
 
 ## Runtime Manager related deployment
 
