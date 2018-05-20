@@ -22,7 +22,7 @@ be  "mvn deploy -P arm -Dargs=...". The following section will detail the argume
 
 ### create API instance in API Manager 
 
-The maven profile "crowd" is used to create or look up API Instance in Anypoint Platform API Manager. 
+The maven profile "crowd" is used to create or look up API Instance in Anypoint Platform API Manager. The implementation is using Groovy script and it is wrapped as a Maven task. So it can be used by any CICD products with Maven support, in different platforms (Windows, Linux)
 
 To deploy an API implentation, normally it will includes two deployment targets:
    1. Runtime Manager
@@ -41,12 +41,14 @@ The maven command will be used to create or lookup an API instance in API Manage
 <code>
 mvn package -P crowd  -Danypoint.user=derek.lin -Danypoint.password=(ANYPOINT PASSWORD)  -DorgId=(ORG ID) -DenvId=(ENV ID)  -DexchangeFileName=(LOCATION OF THE exchange.json file) -DtargetPropFile=(OUTPUT FILE for holding the api discovery detail)
 
+
 Arguments:
   
   anypoint.user: Anypoint platform user name
   
   anypoint.password:  Anypoint platform password
-    -- the above two arguments will be used to obtain Anypoint platform login tokens and all the platform API calls
+   
+   -- the above two arguments will be used to obtain Anypoint platform login tokens and all the platform API calls
   
   orgId:  target Anypoint platform organzaition id
   
