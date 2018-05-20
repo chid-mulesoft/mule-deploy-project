@@ -7,7 +7,7 @@ This Maven project can be used as a standalone independent deployment project to
     3. MMC
     4. API Manager (post Anypoint Platform Crowd release)
   
-1 - 3 are Mule Runtime Related deployment targets. During the deployment phase, target Mule runtime will be customzied (mostly related to Cloud and ARM deployment, on-premises deployment has limited customization during deployment, i.e only application scope variables and it requires Mule 3.9.x or after).
+1 - 3 are Mule Runtime Related deployment targets. During the deployment phase, target Mule runtime will be customzied to fullfil the deployment task. This is mostly related to Cloud and ARM deployment and not much for on-premises deployment.For Cloud deployment, user can customize the Mule Runtime version, woker size, deployment region, application name etc. For On-premesis deployment, the target Mule runtime is maintained and setup alredy, so deployment task can only customize the application scope variables and this also requires Mule 3.9.x or after.
   
 4 are API Manager related deployment target. It focuses on the provision and configure the API instance in API manager,  for various aspects of the API, such as
     1. Client Application
