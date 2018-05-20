@@ -2,16 +2,19 @@
 
 This Maven project can be used as a standalone independent deployment project to deploy any Mule Deplayble Archives (MDA) for different deployment targets, which includes
 
-  Mule Runtime Manager Related
-
     1. Anypoint Runtime Manager (Mule Runtime related, cloud and on-premesies)
     2. Cloudhub
     3. MMC
+    4. API Manager (post Anypoint Platform Crowd release)
   
-  API Manager related
+1 - 3 are Mule Runtime Related deployment targets. During the deployment phase, target Mule runtime will be customzied (mostly related to Cloud and ARM deployment, on-premises deployment has limited customization during deployment, i.e only application scope variables and it requires Mule 3.9.x or after).
   
-    1. API Manager (post Anypoint Platform Crowd release)
-  
+4 are API Manager related deployment target. It focuses on the provision and configure the API instance in API manager,  for various aspects of the API, such as
+    1. Client Application
+    2. Policies
+    3. SLA
+    4. Alert
+
 Different Maven profile can be use for the respective deployment target. For instance, to deploy a MDA to ARM, the maven command will
 be  "mvn deploy -P arm -Dargs=...". 
 
@@ -23,13 +26,11 @@ The following section will detail the arguments which can be used in each profil
 
 ## API Manager related deployment
 
-### create API instance in API Manager 
+The maven profile "crowd" is used to create or look up API Instance in Anypoint Platform API Manager. 
 
-The maven profile "crowd" is used to create or look up API Instance in Anypoint Platform API Manager. The implementation is using Groovy script and it is wrapped as a Maven task. So it can be used by any CICD products with Maven support, in different platforms (Windows, Linux)
+The implementation is using Groovy script and it is wrapped as a Maven task. So it can be used by any CICD products with Maven support, in different platforms (Windows, Linux)
 
-To deploy an API implentation, normally it will includes two deployment targets:
-   1. Runtime Manager
-   2. API Manager
+The curent release is only scoping for the creat or lookup of an API instance in the API manager. The Groovy script will be extended in the future release to include the policies or client management functionalities.
  
 ### Exchange.json file in MDA
 
