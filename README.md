@@ -11,7 +11,7 @@ This Maven project can be used as a standalone independent deployment project to
     * For Cloud deployment, user can customize the Mule Runtime version, woker size, deployment region, application name etc. 
     * For On-premesis deployment, the target Mule runtime is maintained and setup alredy, so deployment task can only customize the application scope variables and this also requires Mule 3.9.x or after.
   
-4 are API Manager related deployment target. It focuses on the provision and configure the API instance in API manager,  for various aspects of the API, such as
+4 are API Manager related deployment target. It focuses on provisioning an API instance in API manager, the API instance will include various aspects of the API, such as
 
 ```text
     1. Client Application
