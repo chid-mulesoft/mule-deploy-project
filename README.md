@@ -38,9 +38,10 @@ This file is essential in binding the API Spec (RAML Files created by API Design
 
 The maven command will be used to create or lookup an API instance in API Manager's dedicated environment.
 
+<code>
 mvn package -P crowd  -Danypoint.user=derek.lin -Danypoint.password=(ANYPOINT PASSWORD)  -DorgId=(ORG ID) -DenvId=(ENV ID)  -DexchangeFileName=(LOCATION OF THE exchange.json file) -DtargetPropFile=(OUTPUT FILE for holding the api discovery detail)
 
-Arguments:
+**Arguments**:
   anypoint.user: Anypoint platform user name
   anypoint.password:  Anypoint platform password
     -- the above two arguments will be used to obtain Anypoint platform login tokens and all the platform API calls
