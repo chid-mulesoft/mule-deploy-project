@@ -1,13 +1,10 @@
+# Intoruction
 
-mule-deploy-project
-
-# Context
-
-This Maven project can be used as standalone independent deployment project to deploy any Mule Deplayble Archives (MDA) aimming at different deployment targets, which includes
+This Maven project can be used as a standalone independent deployment project to deploy any Mule Deplayble Archives (MDA) for different deployment targets, which includes
 
   Mule Runtime Manager Related
 
-    1. Anypoint Runtime Manager (Mule Runtime relate
+    1. Anypoint Runtime Manager (Mule Runtime related, cloud and on-premesies)
     2. Cloudhub
     3. MMC
   
@@ -16,7 +13,13 @@ This Maven project can be used as standalone independent deployment project to d
     1. API Manager (post Anypoint Platform Crowd release)
   
 Different Maven profile can be use for the respective deployment target. For instance, to deploy a MDA to ARM, the maven command will
-be  "mvn deploy -P arm -Dargs=...". The following section will detail the arguments which can be used in each profile.
+be  "mvn deploy -P arm -Dargs=...". 
+
+The following section will detail the arguments which can be used in each profile.
+
+## Runtime Manager related deployment
+
+(this section of documentation will be coming soon...)
 
 ## API Manager related deployment
 
