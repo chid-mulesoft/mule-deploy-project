@@ -184,10 +184,11 @@ class CICDUtil
 			apiInstance = createAPIInstance(token, exchangeDetail, props)
 			apiDiscoveryName = "groupId:"+props.orgId+":assetId:"+ exchangeDetail.assetId
 			apiDiscoveryVersion = apiInstance.autodiscoveryInstanceName
+			apiDiscoveryId = apiInstance.id
 
 		}
 
-		def result = ["apiInstance": apiInstance, "apiDiscoveryName": apiDiscoveryName, "apiDiscoveryVersion":apiDiscoveryVersion]
+		def result = ["apiInstance": apiInstance, "apiDiscoveryName": apiDiscoveryName, "apiDiscoveryVersion":apiDiscoveryVersion, "apiDiscoveryId": apiDiscoveryId]
 
 		log(DEBUG,  "END getAPIInstanceByExchangeAssetDetail")
 
@@ -287,6 +288,7 @@ class CICDUtil
 
 		outputFile.append("apiDiscoveryVersion="+result.apiDiscoveryVersion+"\n")
 		outputFile.append("apiDiscoveryName="+result.apiDiscoveryName+"\n")
+		outputFile.append("apiDiscoveryId="+result.apiDiscoveryId+"\n")
 
 
 	}
