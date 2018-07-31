@@ -170,6 +170,7 @@
 								<anypoint.platform.client_secret>${anypoint.platform.client_secret}</anypoint.platform.client_secret>
 								<anypoint.api.discovery.name>${anypoint.api.discovery.name}</anypoint.api.discovery.name>
 								<anypoint.api.discovery.version>${anypoint.api.discovery.version}</anypoint.api.discovery.version>
+								<anypoint.api.discovery.id>${anypoint.api.discovery.id}</anypoint.api.discovery.id>
 							</properties>
 						</configuration>
 						<executions>
