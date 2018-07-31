@@ -121,6 +121,7 @@ class CICDUtil
 					 'targetPropFile' : System.properties.'targetPropFile'
 					]
 
+		log(DEBUG,  "props->" + props)
 		return props;
 	}
 
