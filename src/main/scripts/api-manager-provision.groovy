@@ -145,6 +145,7 @@ class CICDUtil
 		def apiInstance
 		def apiDiscoveryName
 		def apiDiscoveryVersion
+		def apiDiscoveryId
 
 		def urlString = "https://anypoint.mulesoft.com/exchange/api/v1/assets/"+props.orgId+"/"+exchangeDetail.assetId
 
@@ -172,6 +173,7 @@ class CICDUtil
 					apiInstance = it;
 					apiDiscoveryName = "groupId:"+props.orgId+":assetId:"+ exchangeDetail.assetId
 					apiDiscoveryVersion = apiInstance.name
+					apiDiscoveryId = apiInstance.id
 				}
 			}
 
