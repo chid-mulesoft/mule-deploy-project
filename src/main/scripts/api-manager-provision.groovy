@@ -50,6 +50,11 @@ class CICDUtil
 		assert inputFile.exists() : "exchange.json file not found"
 		assert inputFile.canRead() : "exchange.json file cannot be read"
 
+		if (inputFile.length() == 0)
+		{
+			log(DEBUG, "input exchange.json file is empty, going to use the exchange.json file packaged in the archive")
+		}
+
 		def exchangeDetail = new JsonSlurper().parseText(inputFile.text)
 
 
@@ -112,6 +117,7 @@ class CICDUtil
 					 'exchangeFileName': System.properties.'exchangeFileName',
 					 'orgId': System.properties.'orgId',
 					 'envId': System.properties.'envId',
+					 'isMule4OrAbove': System.properties.'isMule4OrAbove',
 					 'targetPropFile' : System.properties.'targetPropFile'
 					]
 
@@ -198,9 +204,11 @@ class CICDUtil
 
 		request.endpoint.deploymentType = 'CH'
 		request.endpoint.type='rest-api'
+		request.endpoint.muleVersion4OrAbove = props.isMule4OrAbove
 		request.spec.assetId=exchangeDetail.assetId
 		request.spec.groupId=props.orgId
 		request.spec.version=exchangeDetail.version
+
 
 		def message = JsonOutput.toJson(request)
 		log(INFO, "createAPIInstance request message=" + message);
