@@ -4,7 +4,7 @@
 	<groupId>consultation-DL</groupId>
 	<artifactId>Mule-Deploy</artifactId>
 	<version>1.0.0</version>
-	<packaging>mule-application</packaging>
+	<packaging>${mule-package-type}</packaging>
 	<name>Mule Deploy App</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -32,6 +32,7 @@
 						<artifactId>groovy-maven-plugin</artifactId>
 						<executions>
 							<execution>
+								<id>crowd</id>
 								<phase>generate-resources</phase>
 								<goals>
 									<goal>execute</goal>
@@ -123,21 +124,30 @@
 		</profile>
 		<profile>
 			<id>cloudhub</id>
+			<!--
+				mvn deploy 
+				-Dmule-package-type=mule-application 
+				-DtargetArtifactFinalName=${bamboo.maven.artifactId}-${bamboo.maven.version}
+				-Dmule.artifact=deployTarget/${bamboo.inject.targetFile} 
+				-Dproject.artifact.file=deployTarget/${bamboo.inject.targetFile} 
+				-Dch.runtime=${bamboo.inject.ch.runtime} 
+				-Danypoint.user=${bamboo.anypoint.user}  
+				-Danypoint.password=${bamboo.anypoint.password} 
+				-Dch.appName=${bamboo.ch.appName} 
+				-D"anypoint.org=${bamboo.anypoint.org}" 
+				-Danypoint.env=${bamboo.anypoint.env}  
+				-Dch.workerType=${bamboo.ch.workerType} 
+				-Dch.region=${bamboo.ch.region} 
+				-Dmule.env=${bamboo.mule.env} 
+				-Dmule.security.key=${bamboo.mule.security.key}   
+				-Dmaven.install.skip=true 
+				-Danypoint.api.discovery.id=${bamboo.inject.apiDiscoveryId} 
+				-DskipTests 
+				-P cloudhub
+			-->
 			<build>
 				<finalName>${targetArtifactFinalName}</finalName>
-				<!--targetFolder>targetDeploy</targetFolder-->
 				<plugins>
-					<!--
-					<plugin>
-						<groupId>org.mule.tools.maven</groupId>
-						<artifactId>mule-app-maven-plugin</artifactId>
-						<version>${mule.tools.version}</version>
-						<extensions>true</extensions>
-						<configuration>
-							<copyToAppsDirectory>true</copyToAppsDirectory>
-						</configuration>
-					</plugin>
-				-->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-deploy-plugin</artifactId>
