@@ -4,14 +4,14 @@
 	<groupId>consultation-DL</groupId>
 	<artifactId>Mule-Deploy</artifactId>
 	<version>1.0.0</version>
-	<packaging>pom</packaging>
+	<packaging>mule-application</packaging>
 	<name>Mule Deploy App</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mule.version>3.9.0</mule.version>
 		<mule.tools.version>1.2</mule.tools.version>
-		<mule.maven.plugin.version>2.2.1</mule.maven.plugin.version>
+		<mule.maven.plugin.version>3.1.7</mule.maven.plugin.version>
 	</properties>
 
 	<dependencies>
@@ -125,7 +125,9 @@
 			<id>cloudhub</id>
 			<build>
 				<finalName>${targetArtifactFinalName}</finalName>
+				<!--targetFolder>targetDeploy</targetFolder-->
 				<plugins>
+					<!--
 					<plugin>
 						<groupId>org.mule.tools.maven</groupId>
 						<artifactId>mule-app-maven-plugin</artifactId>
@@ -135,6 +137,7 @@
 							<copyToAppsDirectory>true</copyToAppsDirectory>
 						</configuration>
 					</plugin>
+				-->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-deploy-plugin</artifactId>
@@ -146,33 +149,30 @@
 					<plugin>
 						<groupId>org.mule.tools.maven</groupId>
 						<artifactId>mule-maven-plugin</artifactId>
-						<version>${mule.maven.plugin.version}</version>
+						<version>3.1.7</version>
+						<extensions>true</extensions>
 						<configuration>
-							<deploymentType>cloudhub</deploymentType>
-							<muleVersion>${ch.runtime}</muleVersion>
-							<!-- This is the runtime version as it appears on the CloudHub interface -->
-							<username>${anypoint.user}</username>
-							<password>${anypoint.password}</password>
-							<redeploy>true</redeploy>
-							<applicationName>${ch.appName}</applicationName>
-							<application>${mule.artifact.fileName}</application>
-							<environment>${anypoint.env}</environment>
-							<businessGroup>${anypoint.org}</businessGroup>
-							<workerType>${ch.workerType}</workerType>
-							<region>${ch.region}</region>
-							<properties>
-								<mule.env>${mule.env}</mule.env>
-								<securityKey>${mule.security.key}</securityKey>
-								<anypoint.platform.analytics_base_uri>https://analytics-ingest.anypoint.mulesoft.com</anypoint.platform.analytics_base_uri>
-								<anypoint.platform.coreservice_base_uri>https://anypoint.mulesoft.com/accounts</anypoint.platform.coreservice_base_uri>
-								<anypoint.platform.platform_base_uri>https://anypoint.mulesoft.com/apiplatform</anypoint.platform.platform_base_uri>
-								<anypoint.platform.contracts_base_uri>https://anypoint.mulesoft.com/apigateway/ccs</anypoint.platform.contracts_base_uri>
-								<anypoint.platform.client_id>${anypoint.platform.client_id}</anypoint.platform.client_id>
-								<anypoint.platform.client_secret>${anypoint.platform.client_secret}</anypoint.platform.client_secret>
-								<anypoint.api.discovery.name>${anypoint.api.discovery.name}</anypoint.api.discovery.name>
-								<anypoint.api.discovery.version>${anypoint.api.discovery.version}</anypoint.api.discovery.version>
-								<anypoint.api.discovery.id>${anypoint.api.discovery.id}</anypoint.api.discovery.id>
-							</properties>
+						    <cloudHubDeployment>
+						    	<username>${anypoint.user}</username>
+					            <password>${anypoint.password}</password>
+					            <businessGroup>${anypoint.org}</businessGroup>
+					            <environment>${anypoint.env}</environment>
+					            <applicationName>${ch.appName}</applicationName>
+					            <muleVersion>${ch.runtime}</muleVersion> <!-- This is the runtime version as it appears on the CloudHub interface -->
+					            <workerType>${ch.workerType}</workerType>
+								<region>${ch.region}</region>
+					            <properties>
+									<securityKey>${mule.security.key}</securityKey>
+									<mule.env>${mule.env}</mule.env>
+									<anypoint.platform.analytics_base_uri>https://analytics-ingest.anypoint.mulesoft.com</anypoint.platform.analytics_base_uri>
+									<anypoint.platform.coreservice_base_uri>https://anypoint.mulesoft.com/accounts</anypoint.platform.coreservice_base_uri>
+									<anypoint.platform.platform_base_uri>https://anypoint.mulesoft.com/apiplatform</anypoint.platform.platform_base_uri>
+									<anypoint.platform.contracts_base_uri>https://anypoint.mulesoft.com/apigateway/ccs</anypoint.platform.contracts_base_uri>
+									<anypoint.platform.client_id>${anypoint.platform.client_id}</anypoint.platform.client_id>
+									<anypoint.platform.client_secret>${anypoint.platform.client_secret}</anypoint.platform.client_secret>
+									<anypoint.api.discovery.id>${anypoint.api.discovery.id}</anypoint.api.discovery.id>
+					            </properties>
+						    </cloudHubDeployment>
 						</configuration>
 						<executions>
 							<execution>
