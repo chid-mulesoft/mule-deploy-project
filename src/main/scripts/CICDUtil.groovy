@@ -91,11 +91,11 @@ class CICDUtil
 
 		// check the parsed in pom file readable
 
-		def pomFileName = System.properties.'pomFileName'
+		def pomFileName = new FileNameFinder().getFileNames(System.properties.'pomFileName', '*pom*')
 
 		assert (pomFileName != null): "pom file name is missing"
 
-		def pomFile = new File(pomFileName)
+		def pomFile = new File(pomFileName[0])
 
 		assert pomFile.canRead() : "file: $pomFileName cannot be read"
 
