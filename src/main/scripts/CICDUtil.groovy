@@ -51,15 +51,54 @@ class CICDUtil
 		println ("Task: " + System.properties.'task' )
 
 
-		if (System.properties.'task' == 'ParsePOM')
+		if (System.properties.'task' == 'PrepareForDeploy')
 		{
-			invokeParsePOM(args)
+			util.doPrepareForDeploy(args)
 		}
-
 
    	} 
 
-   	public static File getTargetOutputFile(String fileName)
+   	public void doPrepareForDeploy(args)
+   	{
+   		def targetOutputFile
+
+		if (System.properties.'targetOutputFile' != null )
+		{
+			targetOutputFile = getTargetOutputFile(System.properties.'targetOutputFile')
+		}
+
+		invokeParsePOM(args, targetOutputFile)
+
+		invokeExtractExchangeFile(args, targetOutputFile)
+   	}
+
+   	public void invokeExtractExchangeFile(String[] args, File targetOutputFile)
+   	{
+		def targetDeployFileName = new FileNameFinder().getFileNames(System.properties.'targetDeployFileFolder', System.properties.'targetDeployFileName')
+
+		assert (targetDeployFileName != null): "target deploy file is missing"
+
+		def targetDeployFile = new File(targetDeployFileName[0])
+
+		assert targetDeployFile.canRead() : "file: $targetDeployFileName[0] cannot be read"
+
+		log (DEBUG, "file $targetDeployFileName[0] is readable")
+
+		def tmpFolder = System.properties.'targetDeployFileFolder' + File.separator + "tmp"
+
+		def ant = new AntBuilder()
+
+		ant.unzip(  src:targetDeployFile, dest: tmpFolder, overwrite:"false")
+
+		def exchangeFileName = new FileNameFinder().getFileNames(tmpFolder, '**/exchange.json')
+
+		assert (exchangeFileName.size() > 0): "Exchange file is missing"
+		
+		ant.copy(file: exchangeFileName[0], tofile: System.properties.'targetDeployFileFolder'+ File.separator + 'exchange.json')
+
+   	}
+
+   	public File getTargetOutputFile(String fileName)
    	{
 		assert (fileName != null): "file name is missing"
 
@@ -77,16 +116,9 @@ class CICDUtil
 		return file
    	}
 
-	public static void invokeParsePOM(String[] args)
+	public void invokeParsePOM(String[] args, File targetOutputFile)
 	{
 		//ensure target output file is writtable, or create if not exist
-
-		def targetOutputFile
-
-		if (System.properties.'targetOutputFile' != null )
-		{
-			targetOutputFile = getTargetOutputFile(System.properties.'targetOutputFile')
-		}
 
 
 		// check the parsed in pom file readable
