@@ -5,7 +5,7 @@ import groovyx.net.http.ContentType.*
 import groovyx.net.http.Method.*
 
 
-class CICDUtil
+class APIMgrUtil
 {
 	static def int WARN=1;
 	static def int INFO=2;
@@ -120,6 +120,10 @@ class CICDUtil
 					 'isMule4OrAbove': System.properties.'isMule4OrAbove',
 					 'targetPropFile' : System.properties.'targetPropFile'
 					]
+	    if (System.properties.'logLevel' != null )
+	    {
+	    	logLevel = System.properties.'logLevel'
+	    }
 
 		log(DEBUG,  "props->" + props)
 		return props;
@@ -298,7 +302,8 @@ class CICDUtil
 	static void main(String[] args) {
 
 
-		CICDUtil util = new CICDUtil();
+		APIMgrUtil util = new APIMgrUtil();
+
 
 		def props = util.init();
       
