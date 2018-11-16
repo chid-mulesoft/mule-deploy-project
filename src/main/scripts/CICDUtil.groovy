@@ -93,7 +93,7 @@ class CICDUtil
 		def exchangeFileName = new FileNameFinder().getFileNames(tmpFolder, '**/exchange.json')
 
 		assert (exchangeFileName.size() > 0): "Exchange file is missing"
-		
+
 		ant.copy(file: exchangeFileName[0], tofile: System.properties.'targetDeployFileFolder'+ File.separator + 'exchange.json')
 
    	}
@@ -123,7 +123,7 @@ class CICDUtil
 
 		// check the parsed in pom file readable
 
-		def pomFileName = new FileNameFinder().getFileNames(System.properties.'pomFileName', '*pom*')
+		def pomFileName = new FileNameFinder().getFileNames(System.properties.'targetDeployFileFolder', '*pom*')
 
 		assert (pomFileName != null): "pom file name is missing"
 
