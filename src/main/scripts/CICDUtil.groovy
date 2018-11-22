@@ -82,7 +82,10 @@ class CICDUtil
 
 		assert targetDeployFile.canRead() : "file: $targetDeployFileName[0] cannot be read"
 
+		targetOutputFile.append("mule.artifact.fileName="+$targetDeployFileName[0]+"\n")
+
 		log (DEBUG, "file $targetDeployFileName[0] is readable")
+
 
 		def tmpFolder = System.properties.'targetDeployFileFolder' + File.separator + "tmp"
 
@@ -147,12 +150,12 @@ class CICDUtil
 		//mule runtime version
 		def muleRuntimeVersion = pom.properties.'mule.version'
 
-		log(DEBUG, "POM group=$groupId, artifactId=$artifactId, version=$version muleRuntimeVersion=$muleRuntimeVersion")
+		log(DEBUG, "POM group=$groupId, artifactId=$artifactId, version=$version mule.runtime.version=$muleRuntimeVersion")
 
 		targetOutputFile.append("group="+groupId+"\n")
 		targetOutputFile.append("artifactId="+artifactId+"\n")
 		targetOutputFile.append("version="+version+"\n")
-		targetOutputFile.append("muleRuntimeVersion="+muleRuntimeVersion+"\n")
+		targetOutputFile.append("mule.runtime.version="+muleRuntimeVersion+"\n")
 
 	}
 }
