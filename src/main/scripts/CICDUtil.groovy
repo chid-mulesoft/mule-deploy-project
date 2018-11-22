@@ -82,7 +82,7 @@ class CICDUtil
 
 		assert targetDeployFile.canRead() : "file: $targetDeployFileName[0] cannot be read"
 
-		targetOutputFile.append("mule.artifact.fileName="+$targetDeployFileName[0]+"\n")
+		targetOutputFile.append("mule.artifact.fileName="+targetDeployFile+"\n")
 
 		log (DEBUG, "file $targetDeployFileName[0] is readable")
 
