@@ -144,11 +144,15 @@ class CICDUtil
 		//version number
 		def version = pom.version.toString()
 
-		log(DEBUG, "POM group=$groupId, artifactId=$artifactId, version=$version")
+		//mule runtime version
+		def muleRuntimeVersion = pom.properties.'mule.version'
+
+		log(DEBUG, "POM group=$groupId, artifactId=$artifactId, version=$version muleRuntimeVersion=$muleRuntimeVersion")
 
 		targetOutputFile.append("group="+groupId+"\n")
 		targetOutputFile.append("artifactId="+artifactId+"\n")
 		targetOutputFile.append("version="+version+"\n")
+		targetOutputFile.append("muleRuntimeVersion="+muleRuntimeVersion+"\n")
 
 	}
 }
