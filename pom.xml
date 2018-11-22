@@ -151,6 +151,7 @@
 		<profile>
 			<id>cloudhub</id>
 			<!--
+				bamboo:
 				mvn deploy 
 				-Dmule-package-type=mule-application 
 				-DtargetArtifactFinalName=${bamboo.maven.artifactId}-${bamboo.maven.version}
@@ -169,6 +170,28 @@
 				-Dmaven.install.skip=true 
 				-Danypoint.api.discovery.id=${bamboo.inject.apiDiscoveryId} 
 				-DskipTests 
+				-P cloudhub
+
+				Jenkins:
+
+				-DtargetArtifactFinalName=${artifactId}-${artifactId}.zip
+				-Dmule.artifact.fileName=${mule.artifact.fileName}
+				-Dch.runtime=${mule.runtime.version}
+				-Danypoint.user=${ANYPOINT_USER}
+				-Danypoint.password=${ANYPOINT_PASSWORD}
+				-Dch.appName=${ANYPOINT_CH_APP_NAME}
+				-Danypoint.env=${ANYPOINT_ENV}
+				-Dch.workerType=${ANYPOINT_CH_WORKER_TYPE}
+				-Dch.region=${ANYPOINT_CH_WORKER_REGION}
+				-Dmule.env=${mule.env}
+				-Dmule.security.key=${SECURITY_KEY}
+				-Danypoint.platform.client_id=${ANYPOINT_CLIENT_ID}
+				-Danypoint.platform.client_secret=${ANYPOINT_CLIENT_SECRET}
+				-Danypoint.api.discovery.name=${mule.api.discovery.name}
+				-Danypoint.api.discovery.version=${mule.api.discovery.version}
+				-Danypoint.api.discovery.id=${mule.api.discovery.id}
+				-Dmaven.install.skip=true
+				-DskipTests
 				-P cloudhub
 			-->
 			<build>

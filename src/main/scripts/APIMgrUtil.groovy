@@ -292,9 +292,9 @@ class APIMgrUtil
 
 		assert outputFile.canWrite() : "${props.targetPropFile} file cannot be write"
 
-		outputFile.append("apiDiscoveryVersion="+result.apiDiscoveryVersion+"\n")
-		outputFile.append("apiDiscoveryName="+result.apiDiscoveryName+"\n")
-		outputFile.append("apiDiscoveryId="+result.apiDiscoveryId+"\n")
+		outputFile.append("mule.api.discovery.version="+result.apiDiscoveryVersion+"\n")
+		outputFile.append("mule.api.discovery.name="+result.apiDiscoveryName+"\n")
+		outputFile.append("mule.api.discovery.id="+result.apiDiscoveryId+"\n")
 
 
 	}

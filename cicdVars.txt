@@ -1,0 +1,10 @@
+group=consultation-DL
+artifactId=Mule-Deploy
+version=1.0.0
+mule.runtime.version=3.9.1
+mule.artifact.fileName=/Users/derek.lin/Files/Work/repositories/github/mule-deploy-project/target/usyd-system-api-1.0.6-SNAPSHOT.zip
+group=consultation-DL
+artifactId=Mule-Deploy
+version=1.0.0
+mule.runtime.version=3.9.1
+mule.artifact.fileName=/Users/derek.lin/Files/Work/repositories/github/mule-deploy-project/target/usyd-system-api-1.0.6-SNAPSHOT.zip
