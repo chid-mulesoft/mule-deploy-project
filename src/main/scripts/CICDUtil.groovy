@@ -107,7 +107,7 @@ class CICDUtil
 		if (artifactFiles.size() == 0 )
 		{
 			def artifactFile = new File('mule-artifact.json')
-			artifactFile.wirte ("{}");
+			artifactFile.append ('{}');
 		}
 		else
 		{
