@@ -99,6 +99,21 @@ class CICDUtil
 
 		ant.copy(file: exchangeFileName[0], tofile: System.properties.'targetDeployFileFolder'+ File.separator + 'exchange.json')
 
+		//handle mule-artifact.json file
+
+		def artifactFiles = new FileNameFinder().getFileNames(tmpFolder, 'mule-artifact.json')
+
+
+		if (artifactFiles.size() == 0 )
+		{
+			def artifactFile = new File('mule-artifact.json')
+			artifactFile.wirte ("{}");
+		}
+		else
+		{
+			ant.copy(file: artifactFiles[0], tofile: System.properties.'targetDeployFileFolder'+ File.separator + '..' + File.separator)
+		}
+
    	}
 
    	public File getTargetOutputFile(String fileName)
