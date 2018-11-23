@@ -111,7 +111,7 @@ class CICDUtil
 		}
 		else
 		{
-			ant.copy(file: artifactFiles[0], tofile: System.properties.'targetDeployFileFolder'+ File.separator + '..' + File.separator)
+			ant.copy(file: artifactFiles[0], tofile: System.properties.'targetDeployFileFolder'+ File.separator + '..' + File.separator + "mdp" + File.separator )
 		}
 
    	}
