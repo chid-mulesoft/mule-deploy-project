@@ -218,6 +218,7 @@
 					            <businessGroup>${anypoint.org}</businessGroup>
 					            <environment>${anypoint.env}</environment>
 					            <applicationName>${ch.appName}</applicationName>
+					            <artifact>${mule.artifact.fileName}</artifact>
 					            <muleVersion>${ch.runtime}</muleVersion> <!-- This is the runtime version as it appears on the CloudHub interface -->
 					            <workerType>${ch.workerType}</workerType>
 								<region>${ch.region}</region>
