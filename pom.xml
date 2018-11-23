@@ -223,7 +223,7 @@
 					            <workerType>${ch.workerType}</workerType>
 								<region>${ch.region}</region>
 					            <properties>
-									<securityKey>${mule.security.key}</securityKey>
+									<enc.key>${mule.security.key}</enc.key>
 									<mule.env>${mule.env}</mule.env>
 									<anypoint.platform.analytics_base_uri>https://analytics-ingest.anypoint.mulesoft.com</anypoint.platform.analytics_base_uri>
 									<anypoint.platform.coreservice_base_uri>https://anypoint.mulesoft.com/accounts</anypoint.platform.coreservice_base_uri>
@@ -231,6 +231,8 @@
 									<anypoint.platform.contracts_base_uri>https://anypoint.mulesoft.com/apigateway/ccs</anypoint.platform.contracts_base_uri>
 									<anypoint.platform.client_id>${anypoint.platform.client_id}</anypoint.platform.client_id>
 									<anypoint.platform.client_secret>${anypoint.platform.client_secret}</anypoint.platform.client_secret>
+									<anypoint.api.discovery.name>${anypoint.api.discovery.id}</anypoint.api.discovery.name>
+									<anypoint.api.discovery.version>${anypoint.api.discovery.id}</anypoint.api.discovery.version>
 									<anypoint.api.discovery.id>${anypoint.api.discovery.id}</anypoint.api.discovery.id>
 					            </properties>
 						    </cloudHubDeployment>
