@@ -246,6 +246,13 @@
 					</plugin>
 				</plugins>
 			</build>
+			<repositories>
+                 <repository>
+                        <id>mule-releases</id>
+                        <name>Mule Releases Repository</name>
+                        <url>https://repository-master.mulesoft.org/nexus/content/repositories/releases/</url>
+                </repository>
+			</repositories>
 		</profile>
 	</profiles>
 	<distributionManagement>
