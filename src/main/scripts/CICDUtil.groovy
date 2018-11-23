@@ -152,10 +152,7 @@ class CICDUtil
 
 		//mule packaging type
 		def mulePackageType = "mule-application"
-		if ( muleRuntimeVersion =~ '3....') 
-		{
-			mulePackageType="jar"
-		}
+
 
 		log(DEBUG, "POM group=$groupId, artifactId=$artifactId, version=$version mule.runtime.version=$muleRuntimeVersion")
 
