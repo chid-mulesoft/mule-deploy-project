@@ -254,7 +254,6 @@
 			</pluginRepositories>
 		</profile>
 	</profiles>
-</repositories>
 	<distributionManagement>
 		<repository>
 			<id>local-docker-nexus-snapshots</id>
