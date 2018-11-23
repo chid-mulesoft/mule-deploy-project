@@ -174,8 +174,8 @@
 
 				Jenkins:
 
-				-DtargetArtifactFinalName=${artifactId}-${artifactId}.zip
-				-Dmule.artifact.fileName=${mule.artifact.fileName}
+				-DtargetArtifactFinalName=${mule.artefact.artifactId}-${mule.artefact.version}.zip
+				-Dmule.artifact.fileName=${mule.artefact.fileName}
 				-Dch.runtime=${mule.runtime.version}
 				-Danypoint.user=${ANYPOINT_USER}
 				-Danypoint.password=${ANYPOINT_PASSWORD}
@@ -190,6 +190,7 @@
 				-Danypoint.api.discovery.name=${mule.api.discovery.name}
 				-Danypoint.api.discovery.version=${mule.api.discovery.version}
 				-Danypoint.api.discovery.id=${mule.api.discovery.id}
+				-Dmule-package-type=${mule.artefact.packageType}
 				-Dmaven.install.skip=true
 				-DskipTests
 				-P cloudhub
