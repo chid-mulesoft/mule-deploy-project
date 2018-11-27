@@ -117,7 +117,7 @@ class APIMgrUtil
 					 'exchangeFileName': System.properties.'exchangeFileName',
 					 'orgId': System.properties.'orgId',
 					 'envId': System.properties.'envId',
-					 'isMule4OrAbove': System.properties.'isMule4OrAbove',
+					 'isMule4OrAbove': System.properties.'isMule4OrAbove'.equalsIgnoreCase( 'true' ),
 					 'targetPropFile' : System.properties.'targetPropFile'
 					]
 	    if (System.properties.'logLevel' != null )
@@ -176,6 +176,7 @@ class APIMgrUtil
 				{
 					apiInstance = it;
 					apiDiscoveryName = "groupId:"+props.orgId+":assetId:"+ exchangeDetail.assetId
+					apiDiscoveryName = exchangeDetail.name
 					apiDiscoveryVersion = apiInstance.name
 					apiDiscoveryId = apiInstance.id
 				}

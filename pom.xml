@@ -26,6 +26,14 @@
 		<profile>
 			<id>build</id>
 			<build>
+				<!--
+					mule-package-type=jar
+					task=PrepareForDeploy
+					targetDeployFileFolder=deployTarget/
+					targetOutputFile=cicdVars.txt
+					targetDeployFileName=*.zip
+
+				-->
 				<plugins>
 					<plugin>
 						<groupId>org.codehaus.gmaven</groupId>
@@ -51,6 +59,18 @@
 		</profile>
 		<profile>
 			<id>crowd</id>
+			<!--
+
+			Jenkins 
+			anypoint.user=${ANYPOINT_USER}
+			anypoint.password=${ANYPOINT_PASSWORD}
+			orgId=${ANYPOINT_ORGID}
+			envId=${ANYPOINT_ENVID}
+			exchangeFileName=deployTarget/exchange.json
+			targetPropFile=cicdVars.txt
+			mule-package-type=jar
+
+			-->
 			<build>
 				<plugins>
 					<plugin>
@@ -174,26 +194,26 @@
 
 				Jenkins:
 
-				-DtargetArtifactFinalName=${mule.artefact.artifactId}-${mule.artefact.version}.zip
-				-Dmule.artifact.fileName=${mule.artefact.fileName}
-				-Dch.runtime=${mule.runtime.version}
-				-Danypoint.user=${ANYPOINT_USER}
-				-Danypoint.password=${ANYPOINT_PASSWORD}
-				-Dch.appName=${ANYPOINT_CH_APP_NAME}
-				-Danypoint.env=${ANYPOINT_ENV}
-				-Dch.workerType=${ANYPOINT_CH_WORKER_TYPE}
-				-Dch.region=${ANYPOINT_CH_WORKER_REGION}
-				-Dmule.env=${mule.env}
-				-Dmule.security.key=${SECURITY_KEY}
-				-Danypoint.platform.client_id=${ANYPOINT_CLIENT_ID}
-				-Danypoint.platform.client_secret=${ANYPOINT_CLIENT_SECRET}
-				-Danypoint.api.discovery.name=${mule.api.discovery.name}
-				-Danypoint.api.discovery.version=${mule.api.discovery.version}
-				-Danypoint.api.discovery.id=${mule.api.discovery.id}
-				-Dmule-package-type=${mule.artefact.packageType}
-				-Dmaven.install.skip=true
-				-DskipTests
-				-P cloudhub
+				targetArtifactFinalName=${mule.artefact.artifactId}-${mule.artefact.version}.zip
+				mule.artifact.fileName=${mule.artefact.fileName}
+				ch.runtime=${mule.runtime.version}
+				anypoint.user=${ANYPOINT_USER}
+				anypoint.password=${ANYPOINT_PASSWORD}
+				ch.appName=${ANYPOINT_CH_APP_NAME}
+				anypoint.env=${ANYPOINT_ENV}
+				ch.workerType=${ANYPOINT_CH_WORKER_TYPE}
+				ch.region=${ANYPOINT_CH_WORKER_REGION}
+				mule.env=${mule.env}
+				mule.security.key=${SECURITY_KEY}
+				anypoint.platform.client_id=${ANYPOINT_CLIENT_ID}
+				anypoint.platform.client_secret=${ANYPOINT_CLIENT_SECRET}
+				anypoint.api.discovery.name_fix=${mule.api.discovery.name}
+				anypoint.api.discovery.name=ICT System API
+				anypoint.api.discovery.version=${mule.api.discovery.version}
+				anypoint.api.discovery.id=${mule.api.discovery.id}
+				mule-package-type=${mule.artefact.packageType}
+				maven.install.skip=true
+				skipTests
 			-->
 			<build>
 				<finalName>${targetArtifactFinalName}</finalName>
