@@ -117,7 +117,7 @@ class CICDUtil
 					 'exchangeFileName': System.properties.'exchangeFileName',
 					 'orgId': System.properties.'orgId',
 					 'envId': System.properties.'envId',
-					 'isMule4OrAbove': System.properties.'isMule4OrAbove',
+                                         'isMule4OrAbove': System.properties.'isMule4OrAbove'.equalsIgnoreCase( 'true' ),
 					 'targetPropFile' : System.properties.'targetPropFile'
 					]
 
