@@ -56,20 +56,29 @@ class CICDUtil
 			util.doPrepareForDeploy(args)
 		}
 
+		if (System.properties.'task' == 'ParsePOM')
+		{
+			util.doParsePOM(args)
+		}
+
    	} 
 
    	public void doPrepareForDeploy(args)
    	{
-   		def targetOutputFile
-
-		if (System.properties.'targetOutputFile' != null )
-		{
-			targetOutputFile = getTargetOutputFile(System.properties.'targetOutputFile')
-		}
+   		def targetOutputFile = getTargetOutputFile(System.properties.'targetOutputFile')
 
 		invokeParsePOM(args, targetOutputFile)
 
 		invokeExtractExchangeFile(args, targetOutputFile)
+   	}
+
+
+   	public void doParsePOM(args)
+   	{
+   		def targetOutputFile = getTargetOutputFile(System.properties.'targetOutputFile')
+
+		invokeParsePOM(args, targetOutputFile)
+
    	}
 
    	public void invokeExtractExchangeFile(String[] args, File targetOutputFile)
@@ -168,15 +177,22 @@ class CICDUtil
 		//mule packaging type
 		def mulePackageType = "mule-application"
 
+		def muleTargetRepo = "RELEASE"
 
-		log(DEBUG, "POM group=$groupId, artifactId=$artifactId, version=$version mule.runtime.version=$muleRuntimeVersion")
+		if ( version =~ '.*SNAPSHOT') 
+		{
+			muleTargetRepo = "SNAPSHOT"
+		}
+
+
+		log(DEBUG, "POM group=$groupId, artifactId=$artifactId, version=$version mule.runtime.version=$muleRuntimeVersion, muleTargetRepo=$muleTargetRepo")
 
 		targetOutputFile.append("mule.artefact.group="+groupId+"\n")
 		targetOutputFile.append("mule.artefact.artifactId="+artifactId+"\n")
 		targetOutputFile.append("mule.artefact.version="+version+"\n")
 		targetOutputFile.append("mule.artefact.packageType="+mulePackageType+"\n")
 		targetOutputFile.append("mule.runtime.version="+muleRuntimeVersion+"\n")
-
+		targetOutputFile.append("mule.artecfact.targetRepo="+muleTargetRepo+"\n")
 
 	}
 }
