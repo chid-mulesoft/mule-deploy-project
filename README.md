@@ -1,3 +1,7 @@
+# Change History
+
+1. development branch is using the latest mule-maven-plugin 3.1.7
+
 # Introduction
 
 This Maven project can be used as a standalone independent deployment project to deploy any Mule Deplayble Archives (MDA) for different deployment targets, which includes
