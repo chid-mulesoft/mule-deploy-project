@@ -177,15 +177,18 @@ class CICDUtil
 		//mule packaging type
 		def mulePackageType = "mule-application"
 
-		def muleTargetRepo = "RELEASE"
+		def muleTargetRepo = System.properties."repo.release.name"
+		def muleTargetRepoUrl = System.properties."repo.release.url"
+
 
 		if ( version =~ '.*SNAPSHOT') 
 		{
-			muleTargetRepo = "SNAPSHOT"
+			muleTargetRepo = System.properties."repo.snapshot.name"
+		  	muleTargetRepoUrl = System.properties."repo.snapshot.url"
 		}
 
 
-		log(DEBUG, "POM group=$groupId, artifactId=$artifactId, version=$version mule.runtime.version=$muleRuntimeVersion, muleTargetRepo=$muleTargetRepo")
+		log(DEBUG, "POM group=$groupId, artifactId=$artifactId, version=$version mule.runtime.version=$muleRuntimeVersion, muleTargetRepo=$muleTargetRepo, muleTargetRepoUrl=$muleTargetRepoUrl")
 
 		targetOutputFile.append("mule.artefact.group="+groupId+"\n")
 		targetOutputFile.append("mule.artefact.artifactId="+artifactId+"\n")
@@ -193,6 +196,8 @@ class CICDUtil
 		targetOutputFile.append("mule.artefact.packageType="+mulePackageType+"\n")
 		targetOutputFile.append("mule.runtime.version="+muleRuntimeVersion+"\n")
 		targetOutputFile.append("mule.artecfact.targetRepo="+muleTargetRepo+"\n")
+		targetOutputFile.append("mule.artecfact.targetRepoUrl="+muleTargetRepoUrl+"\n")
+
 
 	}
 }
