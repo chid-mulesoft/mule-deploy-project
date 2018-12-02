@@ -81,9 +81,9 @@ class CICDUtil
 
    	}
 
-   	public String invokeFindTargetDeployFile(String targetDeployFileFolder, String targetDeployFileName)
+   	public String invokeFindTargetDeployFile(String targetDeployFileFolder, String targetDeployFileNamePattern)
    	{
-   		def targetDeployFileName = new FileNameFinder().getFileNames(targetDeployFileFolder, targetDeployFileName)
+   		def targetDeployFileName = new FileNameFinder().getFileNames(targetDeployFileFolder, targetDeployFileNamePattern)
 
 		assert (targetDeployFileName != null): "target deploy file: $targetDeployFileName is missing"
 
@@ -200,7 +200,7 @@ class CICDUtil
    		String targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder', System.properties.'targetDeployFileName')
 
 		targetOutputFile.append("mule.artefact.fileName="+targetDeployFile+"\n")
-		
+
 
 		log(DEBUG, "POM group=$groupId, artifactId=$artifactId, version=$version mule.runtime.version=$muleRuntimeVersion, muleTargetRepo=$muleTargetRepo, muleTargetRepoUrl=$muleTargetRepoUrl")
 
