@@ -81,20 +81,25 @@ class CICDUtil
 
    	}
 
-   	public void invokeExtractExchangeFile(String[] args, File targetOutputFile)
+   	public String invokeFindTargetDeployFile(String targetDeployFileFolder, String targetDeployFileName)
    	{
-		def targetDeployFileName = new FileNameFinder().getFileNames(System.properties.'targetDeployFileFolder', System.properties.'targetDeployFileName')
+   		def targetDeployFileName = new FileNameFinder().getFileNames(targetDeployFileFolder, targetDeployFileName)
 
-		assert (targetDeployFileName != null): "target deploy file is missing"
+		assert (targetDeployFileName != null): "target deploy file: $targetDeployFileName is missing"
 
 		def targetDeployFile = new File(targetDeployFileName[0])
 
 		assert targetDeployFile.canRead() : "file: $targetDeployFileName[0] cannot be read"
 
-		targetOutputFile.append("mule.artefact.fileName="+targetDeployFile+"\n")
-
 		log (DEBUG, "file $targetDeployFileName[0] is readable")
+   	}
 
+   	public void invokeExtractExchangeFile(String[] args, File targetOutputFile)
+   	{
+
+   		String targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder', System.properties.'targetDeployFileName')
+
+		targetOutputFile.append("mule.artefact.fileName="+targetDeployFile+"\n")
 
 		def tmpFolder = System.properties.'targetDeployFileFolder' + File.separator + "tmp"
 
@@ -177,6 +182,11 @@ class CICDUtil
 		//mule packaging type
 		def mulePackageType = "mule-application"
 
+		if (muleRuntimeVersion =~ '3.*')
+		{
+			mulePackageType="zip"
+		}
+
 		def muleTargetRepo = System.properties."repo.release.name"
 		def muleTargetRepoUrl = System.properties."repo.release.url"
 
@@ -187,6 +197,10 @@ class CICDUtil
 		  	muleTargetRepoUrl = System.properties."repo.snapshot.url"
 		}
 
+   		String targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder', System.properties.'targetDeployFileName')
+
+		targetOutputFile.append("mule.artefact.fileName="+targetDeployFile+"\n")
+		
 
 		log(DEBUG, "POM group=$groupId, artifactId=$artifactId, version=$version mule.runtime.version=$muleRuntimeVersion, muleTargetRepo=$muleTargetRepo, muleTargetRepoUrl=$muleTargetRepoUrl")
 
