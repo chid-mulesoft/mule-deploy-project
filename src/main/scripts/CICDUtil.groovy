@@ -199,6 +199,11 @@ class CICDUtil
 			//mule runtime version
 			muleRuntimeVersion = pom.properties.'mule.version'
 
+			if (muleRuntimeVersion == null)
+			{
+				muleRuntimeVersion = pom.properties.'app.runtime'
+			}
+
 			//mule packaging type
 			mulePackageType = "jar"
 
