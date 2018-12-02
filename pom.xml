@@ -4,7 +4,7 @@
 	<groupId>consultation-DL</groupId>
 	<artifactId>Mule-Deploy</artifactId>
 	<version>1.0.0</version>
-	<packaging>mule-application</packaging>
+	<packaging>${mule.maven.packaging}</packaging>
 	<name>Mule Deploy App</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
