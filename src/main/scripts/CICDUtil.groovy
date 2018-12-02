@@ -180,7 +180,7 @@ class CICDUtil
 		def muleRuntimeVersion = pom.properties.'mule.version'
 
 		//mule packaging type
-		def mulePackageType = "mule-application"
+		def mulePackageType = "jar"
 
 		if (muleRuntimeVersion =~ '3.*')
 		{
@@ -197,7 +197,7 @@ class CICDUtil
 		  	muleTargetRepoUrl = System.properties."repo.snapshot.url"
 		}
 
-   		String targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder', System.properties.'targetDeployFileName')
+   		String targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder', "*.$mulePackageType")
 
 		targetOutputFile.append("mule.artefact.fileName="+targetDeployFile+"\n")
 
