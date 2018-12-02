@@ -199,7 +199,7 @@ class CICDUtil
 			//mule runtime version
 			muleRuntimeVersion = pom.properties.'mule.version'
 
-			if (muleRuntimeVersion.text()?.trim())
+			if (muleRuntimeVersion.size() == 0)
 			{
 				muleRuntimeVersion = pom.properties.'app.runtime'
 			}
