@@ -67,7 +67,7 @@ class CICDUtil
    	{
    		def targetOutputFile = getTargetOutputFile(System.properties.'targetOutputFile')
 
-   		File targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder', System.properties.'targetDeployFileName', true)
+   		File targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder', System.properties.'targetDeployFileNamePattern', true)
 
 		targetOutputFile.append("mule.artefact.fileName="+targetDeployFile.absolutePath+"\n")
 
@@ -81,7 +81,7 @@ class CICDUtil
    	{
    		def targetOutputFile = getTargetOutputFile(System.properties.'targetOutputFile')
 
-   		File targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder' + File.separator + 'target', System.properties.'targetDeployFileName', false)
+   		File targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder' + File.separator + 'target', System.properties.'targetDeployFileNamePattern', false)
 
 		targetOutputFile.append("mule.artefact.fileName="+targetDeployFile.absolutePath+"\n")
 
