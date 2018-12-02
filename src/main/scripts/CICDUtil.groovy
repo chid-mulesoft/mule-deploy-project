@@ -48,15 +48,15 @@ class CICDUtil
 
 		CICDUtil util = new CICDUtil();
 
-		println ("Task: " + System.properties.'task' )
+		println ("Task: " + System.properties.'targetTask' )
 
 
-		if (System.properties.'task' == 'PrepareForDeploy')
+		if (System.properties.'targetTask' == 'PrepareForDeploy')
 		{
 			util.doPrepareForDeploy(args)
 		}
 
-		if (System.properties.'task' == 'ParsePOM')
+		if (System.properties.'targetTask' == 'ParsePOM')
 		{
 			util.doParsePOM(args)
 		}
