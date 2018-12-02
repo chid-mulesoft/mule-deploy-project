@@ -4,7 +4,7 @@
 	<groupId>consultation-DL</groupId>
 	<artifactId>Mule-Deploy</artifactId>
 	<version>1.0.0</version>
-	<packaging>jar</packaging>
+	<packaging>mule-application</packaging>
 	<name>Mule Deploy App</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -171,25 +171,26 @@
 			<id>cloudhub</id>
 			<!--
 				bamboo:
-				mvn deploy 
-				-Dmule-package-type=mule-application 
-				-DtargetArtifactFinalName=${bamboo.maven.artifactId}-${bamboo.maven.version}
-				-Dmule.artifact=deployTarget/${bamboo.inject.targetFile} 
-				-Dproject.artifact.file=deployTarget/${bamboo.inject.targetFile} 
-				-Dch.runtime=${bamboo.inject.ch.runtime} 
-				-Danypoint.user=${bamboo.anypoint.user}  
-				-Danypoint.password=${bamboo.anypoint.password} 
-				-Dch.appName=${bamboo.ch.appName} 
-				-D"anypoint.org=${bamboo.anypoint.org}" 
-				-Danypoint.env=${bamboo.anypoint.env}  
-				-Dch.workerType=${bamboo.ch.workerType} 
-				-Dch.region=${bamboo.ch.region} 
-				-Dmule.env=${bamboo.mule.env} 
-				-Dmule.security.key=${bamboo.mule.security.key}   
-				-Dmaven.install.skip=true 
-				-Danypoint.api.discovery.id=${bamboo.inject.apiDiscoveryId} 
-				-DskipTests 
-				-P cloudhub
+				mvn deploy -P cloudhub 
+				-DtargetArtifactFinalName=${bamboo.injmule.artefact.artifactId}-${mule.artefact.version}.zip
+				-Dmule.artifact.fileName=${bamboo.deploy.mule.artefact.fileName}
+				-Dmule.env=${mule.env}
+				-Dmule.security.key=${SECURITY_KEY}
+				-Danypoint.user=${ANYPOINT_USER}
+				-Danypoint.password=${ANYPOINT_PASSWORD}
+				-Danypoint.env=${ANYPOINT_ENV}
+				-Dch.appName=${ANYPOINT_CH_APP_NAME}
+				-Dch.runtime=${mule.runtime.version}
+				-Dch.workerType=${ANYPOINT_CH_WORKER_TYPE}
+				-Dch.region=${ANYPOINT_CH_WORKER_REGION}
+				-Danypoint.platform.client_id=${ANYPOINT_CLIENT_ID}
+				-Danypoint.platform.client_secret=${ANYPOINT_CLIENT_SECRET}
+				-Danypoint.api.discovery.name_fix=${mule.api.discovery.name}
+				-Danypoint.api.discovery.name=ICT System API
+				-Danypoint.api.discovery.version=${mule.api.discovery.version}
+				-Danypoint.api.discovery.id=${mule.api.discovery.id}
+				-Dmaven.install.skip=true
+				-DskipTests
 
 				Jenkins:
 
@@ -215,7 +216,7 @@
 				skipTests
 			-->
 			<build>
-				<finalName>${targetArtifactFinalName}</finalName>
+				<!--finalName>${targetArtifactFinalName}</finalName-->
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>

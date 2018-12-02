@@ -12,6 +12,7 @@ class CICDUtil
 	static def int DEBUG=3;
 	static def int TRACE=4;
 
+	static def String tmpFolderName="tmp";
 
 
 	static def logLevel = DEBUG;  //root logger level
@@ -50,15 +51,14 @@ class CICDUtil
 
 		println ("Task: " + System.properties.'targetTask' )
 
+		if (System.properties.'targetTask' == 'PrepareForBuild')
+		{
+			util.doPrepareForBuild(args)
+		}
 
 		if (System.properties.'targetTask' == 'PrepareForDeploy')
 		{
 			util.doPrepareForDeploy(args)
-		}
-
-		if (System.properties.'targetTask' == 'ParsePOM')
-		{
-			util.doParsePOM(args)
 		}
 
    	} 
@@ -67,21 +67,29 @@ class CICDUtil
    	{
    		def targetOutputFile = getTargetOutputFile(System.properties.'targetOutputFile')
 
+   		File targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder', System.properties.'targetDeployFileName', true)
+
+		targetOutputFile.append("mule.artefact.fileName="+targetDeployFile.absolutePath+"\n")
+
 		invokeParsePOM(args, targetOutputFile)
 
 		invokeExtractExchangeFile(args, targetOutputFile)
    	}
 
 
-   	public void doParsePOM(args)
+   	public void doPrepareForBuild(args)
    	{
    		def targetOutputFile = getTargetOutputFile(System.properties.'targetOutputFile')
+
+   		File targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder', System.properties.'targetDeployFileName', true)
+
+		targetOutputFile.append("mule.artefact.fileName="+targetDeployFile.absolutePath+"\n")
 
 		invokeParsePOM(args, targetOutputFile)
 
    	}
 
-   	public String invokeFindTargetDeployFile(String targetDeployFileFolder, String targetDeployFileNamePattern)
+   	public File invokeFindTargetDeployFile(String targetDeployFileFolder, String targetDeployFileNamePattern, Boolean unzipTargetDeployFile)
    	{
    		def targetDeployFileName = new FileNameFinder().getFileNames(targetDeployFileFolder, targetDeployFileNamePattern)
 
@@ -91,27 +99,30 @@ class CICDUtil
 
 		assert targetDeployFile.canRead() : "file: $targetDeployFileName cannot be read"
 
+		if (unzipTargetDeployFile)
+		{
+			def tmpFolder = System.properties.'targetDeployFileFolder' + File.separator + tmpFolderName
+
+			def ant = new AntBuilder()
+
+			ant.unzip(  src:targetDeployFile, dest: tmpFolder, overwrite:"false")
+		}
+
 		log (DEBUG, "file $targetDeployFileName is readable")
 
-		return targetDeployFile.absolutePath
+		return targetDeployFile
    	}
 
    	public void invokeExtractExchangeFile(String[] args, File targetOutputFile)
    	{
 
-   		String targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder', System.properties.'targetDeployFileName')
-
-		targetOutputFile.append("mule.artefact.fileName="+targetDeployFile+"\n")
-
-		def tmpFolder = System.properties.'targetDeployFileFolder' + File.separator + "tmp"
-
-		def ant = new AntBuilder()
-
-		ant.unzip(  src:targetDeployFile, dest: tmpFolder, overwrite:"false")
+		def tmpFolder = System.properties.'targetDeployFileFolder' + File.separator + tmpFolderName
 
 		def exchangeFileName = new FileNameFinder().getFileNames(tmpFolder, '**/exchange.json')
 
 		assert (exchangeFileName.size() > 0): "Exchange file is missing"
+
+		def ant = new AntBuilder()
 
 		ant.copy(file: exchangeFileName[0], tofile: System.properties.'targetDeployFileFolder'+ File.separator + 'exchange.json')
 
@@ -154,41 +165,48 @@ class CICDUtil
 	{
 		//ensure target output file is writtable, or create if not exist
 
+		def groupId=System.properties.'targetDeployFile.groupId'
+		def artifactId=System.properties.'targetDeployFile.artifactId'
+		def version=System.properties.'targetDeployFile.version'
+		def mulePackageType=System.properties.'targetDeployFile.mulePackageType'
+		def muleRuntimeVersion=System.properties.'targetDeployFile.muleRuntimeVersion'
+
 
 		// check the parsed in pom file readable
 
 		def pomFileName = new FileNameFinder().getFileNames(System.properties.'targetDeployFileFolder', '*pom*')
 
-		assert (pomFileName != null): "pom file name is missing"
-
-		def pomFile = new File(pomFileName[0])
-
-		assert pomFile.canRead() : "file: $pomFileName cannot be read"
-
-		log(DEBUG, "file $pomFileName is readable")
-
-		def pom = new XmlSlurper().parse(pomFile)
-
-		//groupId
-		def groupId = pom.groupId.toString()
-
-		//artifactId
-		def artifactId = pom.artifactId.toString()
-
-		//version number
-		def version = pom.version.toString()
-
-		//mule runtime version
-		def muleRuntimeVersion = pom.properties.'mule.version'
-
-		//mule packaging type
-		def mulePackageType = "jar"
-
-		if (muleRuntimeVersion =~ '3.*')
+		if (pomFileName != null && pomFileName[0] != null )
 		{
-			mulePackageType="zip"
-		}
 
+			def pomFile = new File(pomFileName[0])
+
+			assert pomFile.canRead() : "file: $pomFileName cannot be read"
+
+			log(DEBUG, "file $pomFileName is readable")
+
+			def pom = new XmlSlurper().parse(pomFile)
+
+			//groupId
+			groupId = pom.groupId.toString()
+
+			//artifactId
+			artifactId = pom.artifactId.toString()
+
+			//version number
+			version = pom.version.toString()
+
+			//mule runtime version
+			muleRuntimeVersion = pom.properties.'mule.version'
+
+			//mule packaging type
+			mulePackageType = "jar"
+
+			if (muleRuntimeVersion =~ '3.*')
+			{
+				mulePackageType="zip"
+			}
+		}
 		def muleTargetRepo = System.properties."repo.release.name"
 		def muleTargetRepoUrl = System.properties."repo.release.url"
 
@@ -198,11 +216,6 @@ class CICDUtil
 			muleTargetRepo = System.properties."repo.snapshot.name"
 		  	muleTargetRepoUrl = System.properties."repo.snapshot.url"
 		}
-
-   		String targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder' + File.separator + "target", "*.$mulePackageType")
-
-		targetOutputFile.append("mule.artefact.fileName="+targetDeployFile+"\n")
-
 
 		log(DEBUG, "POM group=$groupId, artifactId=$artifactId, version=$version mule.runtime.version=$muleRuntimeVersion, muleTargetRepo=$muleTargetRepo, muleTargetRepoUrl=$muleTargetRepoUrl")
 

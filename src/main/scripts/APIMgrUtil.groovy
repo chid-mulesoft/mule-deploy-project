@@ -117,7 +117,7 @@ class APIMgrUtil
 					 'exchangeFileName': System.properties.'exchangeFileName',
 					 'orgId': System.properties.'orgId',
 					 'envId': System.properties.'envId',
-					 'isMule4OrAbove': System.properties.'isMule4OrAbove'.equalsIgnoreCase( 'true' ),
+					 'isMule4OrAbove': (System.properties.'muleRunTime').matches('4.*'),
 					 'targetPropFile' : System.properties.'targetPropFile'
 					]
 	    if (System.properties.'logLevel' != null )
