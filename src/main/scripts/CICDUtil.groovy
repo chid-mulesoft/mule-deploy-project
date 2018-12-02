@@ -89,9 +89,11 @@ class CICDUtil
 
 		def targetDeployFile = new File(targetDeployFileName[0])
 
-		assert targetDeployFile.canRead() : "file: $targetDeployFileName[0] cannot be read"
+		assert targetDeployFile.canRead() : "file: $targetDeployFileName cannot be read"
 
-		log (DEBUG, "file $targetDeployFileName[0] is readable")
+		log (DEBUG, "file $targetDeployFileName is readable")
+
+		return targetDeployFile.absolutePath
    	}
 
    	public void invokeExtractExchangeFile(String[] args, File targetOutputFile)
@@ -197,7 +199,7 @@ class CICDUtil
 		  	muleTargetRepoUrl = System.properties."repo.snapshot.url"
 		}
 
-   		String targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder', "*.$mulePackageType")
+   		String targetDeployFile = invokeFindTargetDeployFile(System.properties.'targetDeployFileFolder' + File.separator + "target", "*.$mulePackageType")
 
 		targetOutputFile.append("mule.artefact.fileName="+targetDeployFile+"\n")
 
