@@ -4,7 +4,7 @@
 	<groupId>consultation-DL</groupId>
 	<artifactId>Mule-Deploy</artifactId>
 	<version>1.0.0</version>
-	<packaging>${mule-package-type}</packaging>
+	<packaging>jar</packaging>
 	<name>Mule Deploy App</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,7 +18,7 @@
         <dependency>
             <groupId>org.codehaus.groovy.modules.http-builder</groupId>
             <artifactId>http-builder</artifactId>
-            <version>RELEASE</version>
+            <version>0.7.2</version>
         </dependency>
 	</dependencies>
 
@@ -47,7 +47,7 @@
 								</goals>
 								<configuration>
 									<properties>
-							            <task>ParsePOM</task>
+							            <task>${targetTask}</task>
 							         </properties>
 									<source>${project.basedir}/src/main/scripts/CICDUtil.groovy</source>
 								</configuration>
