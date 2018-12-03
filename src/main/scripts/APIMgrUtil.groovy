@@ -5,7 +5,7 @@ import groovyx.net.http.ContentType.*
 import groovyx.net.http.Method.*
 
 
-class CICDUtil
+class APIMgrUtil
 {
 	static def int WARN=1;
 	static def int INFO=2;
@@ -117,9 +117,13 @@ class CICDUtil
 					 'exchangeFileName': System.properties.'exchangeFileName',
 					 'orgId': System.properties.'orgId',
 					 'envId': System.properties.'envId',
-                                         'isMule4OrAbove': System.properties.'isMule4OrAbove'.equalsIgnoreCase( 'true' ),
+					 'isMule4OrAbove': (System.properties.'muleRunTime').matches('4.*'),
 					 'targetPropFile' : System.properties.'targetPropFile'
 					]
+	    if (System.properties.'logLevel' != null )
+	    {
+	    	logLevel = System.properties.'logLevel'
+	    }
 
 		log(DEBUG,  "props->" + props)
 		return props;
@@ -172,6 +176,7 @@ class CICDUtil
 				{
 					apiInstance = it;
 					apiDiscoveryName = "groupId:"+props.orgId+":assetId:"+ exchangeDetail.assetId
+					apiDiscoveryName = exchangeDetail.name
 					apiDiscoveryVersion = apiInstance.name
 					apiDiscoveryId = apiInstance.id
 				}
@@ -288,9 +293,9 @@ class CICDUtil
 
 		assert outputFile.canWrite() : "${props.targetPropFile} file cannot be write"
 
-		outputFile.append("apiDiscoveryVersion="+result.apiDiscoveryVersion+"\n")
-		outputFile.append("apiDiscoveryName="+result.apiDiscoveryName+"\n")
-		outputFile.append("apiDiscoveryId="+result.apiDiscoveryId+"\n")
+		outputFile.append("mule.api.discovery.version="+result.apiDiscoveryVersion+"\n")
+		outputFile.append("mule.api.discovery.name="+result.apiDiscoveryName+"\n")
+		outputFile.append("mule.api.discovery.id="+result.apiDiscoveryId+"\n")
 
 
 	}
@@ -298,7 +303,8 @@ class CICDUtil
 	static void main(String[] args) {
 
 
-		CICDUtil util = new CICDUtil();
+		APIMgrUtil util = new APIMgrUtil();
+
 
 		def props = util.init();
       
