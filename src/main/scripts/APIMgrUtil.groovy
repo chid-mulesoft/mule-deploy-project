@@ -176,7 +176,6 @@ class APIMgrUtil
 				{
 					apiInstance = it;
 					apiDiscoveryName = "groupId:"+props.orgId+":assetId:"+ exchangeDetail.assetId
-					apiDiscoveryName = exchangeDetail.name
 					apiDiscoveryVersion = apiInstance.name
 					apiDiscoveryId = apiInstance.id
 				}
