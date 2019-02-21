@@ -61,7 +61,7 @@ The maven command will be used to create or lookup an API instance in API Manage
   -DorgId=(ORG ID) \
   -DenvId=(ENV ID)  \
   -DexchangeFileName=(location of the exchange.json file, i.e. ./classes/exchange.json) \
-  -DtargetPropFile=(output file for holding the api discovery detail, these detail are sourced from API Manager) \
+  -DtargetPropFile=(output file for holding the api discovery detail, these detail are sourced from API Manager, the file should be created before running this maven command) \
   -DmuleRunTime=(the mule runtime version, 4.1.5 or 3.9.4 for example, this will be used by API Manager)
 ```
 
